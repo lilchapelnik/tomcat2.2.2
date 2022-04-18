@@ -8,15 +8,12 @@ import web.service.CarService;
 
 @Controller
 public class CarsController {
-
+    private CarService carService = new CarService();
 @GetMapping("/cars")
 public String printCar(@RequestParam(defaultValue = "5") int count, Model model) {
-    CarService carService = new CarService();
-    model.addAttribute("cars", carService.getAnyCars());
 
-    if (count >= 5) {
-        model.addAttribute("cars", carService.getAnyCars());
-    } else model.addAttribute("cars", carService.getAnyCars().subList(0, count));
+    model.addAttribute("cars", carService.getAnyCars(count));
+
     return "car";
 }
 
